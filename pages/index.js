@@ -4,6 +4,7 @@ import Banner from '../components/Banner';
 import SmallCard from '../components/Smallcard';
 import MediumCard from '../components/MediumCard';
 import LargeCard from '../components/LargeCard';
+import Footer from '../components/Footer';
 
 export default function Home({ exploreData, cardData }) {
 
@@ -57,6 +58,8 @@ export default function Home({ exploreData, cardData }) {
         />
 
       </main>
+
+    <Footer />
 
     </div>
   )
