@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from "next/image";
-import { SearchIcon, GlobeAltIcon, MenuIcon, UserCircleIcon, UserIcon } from '@heroicons/react/solid'
+import { SearchIcon, GlobeAltIcon, MenuIcon, UserCircleIcon, UsersIcon } from '@heroicons/react/solid'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
@@ -10,6 +10,9 @@ const Header = () => {
   const [searchInput, setSearchInput] = useState('');
   const [startDate, setStartDay] = useState(new Date());
   const [endDate, setEndDay] = useState(new Date());
+  const [noOfGuests, setNoOfGuests] = useState(1);
+
+  console.log(noOfGuests);
 
 
   const selectionRange = {
@@ -21,6 +24,10 @@ const Header = () => {
   const handleSelect = (ranges) => {
     setStartDay(ranges.selection.startDate);
     setEndDay(ranges.selection.endDate);
+  }
+
+  const resetInput = () => {
+    setSearchInput('');
   }
 
   return (
@@ -57,13 +64,31 @@ const Header = () => {
         </div>
 
         {searchInput && (
-          <div>
+          <div className='flex flex-col col-span-3 mx-auto'>
             <DateRangePicker 
               ranges={[selectionRange]}
               minDate={new Date()}
               rangeColors={['#FD5B61']}
               onChange={handleSelect}
             />
+              <div className='flex items-center border-b mb-4'>
+                <h2 className='text-2xl pl-2 flex-grow font-semibold'>Number of Guests</h2>
+              
+                <UsersIcon className='h-5' />
+
+                <input 
+                  type='number' 
+                  value={noOfGuests}
+                  onChange={(e) => setNoOfGuests(e.target.value)}
+                  min={1}
+                  className='w-12 pl-2 text-lg outline-none text-red-400' 
+                />
+              </div>
+
+              <div className='flex'>
+                <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
+                <button className='flex-grow text-red-400'>Search</button>
+              </div>
           </div>
         )}
 
